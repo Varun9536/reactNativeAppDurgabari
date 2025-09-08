@@ -1,32 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    ScrollView,
-    TouchableOpacity,
-    Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from "react-native";
 import { WebView } from "react-native-webview";
-
+import durga from "../../assets/Durga.jpg"
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = 200;
+const windowHeight = 200; // image height
 const DEFAULT_IMAGE = "https://durgabari.org/HDBS_Puja_Payments/1.svg";
 
-export default function ViewMoreDetailPuja({
-    title,
-    subtitle,
-    subtitles = [],
-    times = [],
-    description,
-    onBack,
-    img,
-}) {
+export default function ViewMoreDetailTransport({ title, subtitle, description, onBack, img }) {
     const [validImage, setValidImage] = useState(true);
 
     useEffect(() => {
-        setValidImage(true);
+        setValidImage(true); // reset when img changes
     }, [img]);
 
     const webviewHtml = `
@@ -35,10 +19,10 @@ export default function ViewMoreDetailPuja({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
                 <style>
                     body {
-                        margin:0;
-                        padding:0;
-                        display:flex;
-                        justify-content:center;
+                        margin:0; 
+                        padding:0; 
+                        display:flex; 
+                        justify-content:center; 
                         align-items:center;
                         height:100%;
                         background-color:transparent;
@@ -58,20 +42,19 @@ export default function ViewMoreDetailPuja({
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-            {/* Image or fallback */}
             {validImage ? (
                 <Image
                     source={{ uri: img || DEFAULT_IMAGE }}
                     style={{ width: windowWidth, height: windowHeight }}
                     resizeMode="contain"
-                    onError={() => setValidImage(false)}
+                    onError={() => setValidImage(false)} // fallback to WebView
                 />
             ) : (
                 <View style={{ width: windowWidth, height: windowHeight }}>
                     <WebView
-                        originWhitelist={["*"]}
+                        originWhitelist={['*']}
                         source={{ html: webviewHtml }}
-                        style={{ flex: 1, backgroundColor: "transparent" }}
+                        style={{ flex: 1, backgroundColor: 'transparent' }}
                         scrollEnabled={false}
                     />
                 </View>
@@ -84,36 +67,20 @@ export default function ViewMoreDetailPuja({
                 </TouchableOpacity>
 
                 <View style={styles.labelContainer}>
-                    <Text style={styles.labelText}>Puja Info</Text>
+                    <Text style={styles.labelText}>Event Info</Text>
                 </View>
 
                 <Text style={styles.heading}>{title}</Text>
 
-                {/* Render subtitle list if available */}
-                {Array.isArray(subtitles) && subtitles.length > 0 ? (
-                    <View style={styles.subtitleList}>
-                        {subtitles.map((item, index) => {
-                            const time = times[index] || "";
-                            return (
-                                <Text key={index} style={styles.subtitleItem}>
-                                    <Text style={styles.serial}>{index + 1}.</Text>
-                                    <Text style={styles.subtitleText}> {item}</Text>
-                                    {time ? <Text style={styles.timeText}> — {time}</Text> : null}
-                                </Text>
-                            );
-                        })}
-                    </View>
-                ) : subtitle ? (
-                    // fallback for single string subtitle
+                {subtitle ? (
                     <Text style={[styles.subtitle, { marginBottom: 10 }]}>{subtitle}</Text>
                 ) : null}
 
-                {/* Description */}
-                {typeof description === "string" && (
+                {typeof description === 'string' ? (
                     <Text style={styles.desc}>
                         {description
-                            .replace(/pull stops\./gi, "pull stops.\n")
-                            .split("\n")
+                            .replace(/pull stops\./gi, 'pull stops.\n')
+                            .split('\n')
                             .map((line, index) => (
                                 <Text key={index}>
                                     {line}
@@ -121,7 +88,7 @@ export default function ViewMoreDetailPuja({
                                 </Text>
                             ))}
                     </Text>
-                )}
+                ) : null}
             </View>
         </ScrollView>
     );
@@ -160,25 +127,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "bold",
         marginBottom: 10,
-    },
-    subtitleList: {
-        marginBottom: 20,
-    },
-    subtitleItem: {
-        fontSize: 16,
-        marginBottom: 6,
-    },
-    serial: {
-        fontWeight: "bold",
-        color: "#2C3E50",
-    },
-    subtitleText: {
-        color: "#2C3E50",
-        fontWeight: "500",
-    },
-    timeText: {
-        color: "#7F8C8D",
-        fontWeight: "500",
     },
     subtitle: {
         fontSize: 16,

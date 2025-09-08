@@ -15,8 +15,6 @@ import bajaarArchive from "../assets/bajaarArchive.webp";
 import Bhog from "../assets/Bhog.png";
 import Cultural from "../assets/Cultural.png";
 import SponsorsBG from "../assets/SponsorsBG.jpg";
-import OngoingEventsCarousel from "./Carousel/OngoingEventsCarousel"; // Adjust path as needed
-
 
 const { width } = Dimensions.get("window");
 
@@ -78,8 +76,6 @@ export default function Home() {
             <Text style={styles.heading}>
                 Welcome to Houston Durgabari Puja 2025
             </Text>
-
-            <OngoingEventsCarousel />
 
           
             <FlatList
@@ -151,7 +147,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: width * 0.85,
-        height: 390,
+        height: 250,
         borderRadius: 16,
         resizeMode: "cover",
         shadowColor: "#000",
@@ -161,7 +157,7 @@ const styles = StyleSheet.create({
     },
     textOverlay: {
         position: "absolute",
-        bottom: 5,
+        bottom: 35,
         backgroundColor: "rgba(0,0,0,0.45)",
         paddingVertical: 8,
         paddingHorizontal: 15,
