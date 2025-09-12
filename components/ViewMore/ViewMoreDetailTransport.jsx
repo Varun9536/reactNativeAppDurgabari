@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import {
     View,
@@ -7,6 +8,7 @@ import {
     ScrollView,
     TouchableOpacity,
     Dimensions,
+    Linking,
 } from "react-native";
 import { WebView } from "react-native-webview";
 
@@ -22,6 +24,8 @@ export default function ViewMoreDetailTransport({
     description,
     onBack,
     img,
+    location,
+    address,
 }) {
     const [validImage, setValidImage] = useState(true);
 
@@ -56,6 +60,26 @@ export default function ViewMoreDetailTransport({
         </html>
     `;
 
+    const openMap = () => {
+        let url = "";
+
+        if (location?.startsWith("http")) {
+            // Already a map link
+            url = location;
+        } else if (location) {
+            // Build a Google Maps search URL
+            url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+        }
+
+        if (url) {
+            Linking.openURL(url).catch(err =>
+                console.error("Failed to open map:", err)
+            );
+        } else {
+            console.warn("No valid location or map link provided.");
+        }
+    };
+
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
             {/* Image or WebView fallback */}
@@ -89,7 +113,7 @@ export default function ViewMoreDetailTransport({
 
                 <Text style={styles.heading}>{title}</Text>
 
-                {/* Subtitle Array (as list) */}
+                {/* Subtitle Array */}
                 {Array.isArray(subtitles) && subtitles.length > 0 ? (
                     <View style={styles.subtitleList}>
                         {subtitles.map((item, index) => {
@@ -121,6 +145,23 @@ export default function ViewMoreDetailTransport({
                             ))}
                     </Text>
                 )}
+
+                {/* Location Section */}
+                {location ? (
+                    <View style={styles.locationWrapper}>
+                        <TouchableOpacity
+                            style={styles.locationLinkContainer}
+                            onPress={openMap}
+                        >
+                            <Text style={styles.locationLink}>📍 Open in Maps</Text>
+                        </TouchableOpacity>
+
+                        <View style={styles.locationAddressContainer}>
+                            <Text style={styles.locationLabel}>Address:</Text>
+                            <Text style={styles.locationText}>{address}</Text>
+                        </View>
+                    </View>
+                ) : null}
             </View>
         </ScrollView>
     );
@@ -187,5 +228,40 @@ const styles = StyleSheet.create({
     desc: {
         fontSize: 18,
         lineHeight: 24,
+        marginBottom: 20,
+    },
+    locationWrapper: {
+        marginBottom: 16,
+        padding: 10,
+        borderRadius: 8,
+        backgroundColor: "#E8F4FA",
+    },
+    locationLinkContainer: {
+        marginBottom: 6,
+    },
+    locationLink: {
+        color: "#2980B9",
+        fontWeight: "bold",
+        fontSize: 16,
+        textDecorationLine: "underline",
+    },
+    locationAddressContainer: {
+        flexDirection: "column",
+        marginTop: 8,
+        width: "100%",
+    },
+    locationLabel: {
+        fontWeight: "bold",
+        color: "#2C3E50",
+        fontSize: 16,
+        marginBottom: 6,
+    },
+    locationText: {
+        color: "#2C3E50",
+        fontSize: 16,
+        lineHeight: 24,
+        flexWrap: "wrap",
+        width: "100%",
+        textAlign: "left",
     },
 });

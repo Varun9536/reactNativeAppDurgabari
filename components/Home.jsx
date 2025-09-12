@@ -56,6 +56,8 @@ const data = [
 export default function Home() {
     const flatListRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const currentYear = new Date().getFullYear();
+    
 
   
     useEffect(() => {
@@ -76,7 +78,7 @@ export default function Home() {
         <View style={styles.container}>
            
             <Text style={styles.heading}>
-                Welcome to Houston Durgabari Puja 2025
+                Welcome to Houston Durgabari Puja {currentYear}
             </Text>
 
             <OngoingEventsCarousel />
