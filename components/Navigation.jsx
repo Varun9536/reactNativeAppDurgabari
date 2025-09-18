@@ -19,6 +19,8 @@ import Sponsors from "./SideBarPages/Sponsors";
 import Contacts from "./SideBarPages/Contacts";
 import Disclaimer from "./SideBarPages/Disclaimer";
 import Alerts from "./SideBarPages/Alerts";
+import PrivacyPolicy from "./SideBarPages/PrivacyPolicy"
+import AboutUs from "./SideBarPages/AboutUs"
 
 const Tabs = [
     { name: 'Home', icon: 'home' },
@@ -30,10 +32,12 @@ const Tabs = [
 
 const SidebarItems = [
     { name: 'Home', icon: 'home' },
+    { name: 'About Us', icon: 'info' },
     { name: 'Alerts', icon: 'event' },
     { name: 'Contacts', icon: 'commute' },
     { name: 'Disclaimer', icon: 'theaters' },
     { name: 'Our Sponsors', icon: 'restaurant' },
+    { name: 'Privacy Policy', icon: 'shield' },
 ];
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -69,11 +73,14 @@ export default function Navigation() {
             case 'Events': return <Puja />;
             case 'Transport': return <Transport />;
             case 'Cultural Programs': return <Programs />;
+            case 'Food': return <Food />;
+            case 'About Us': return <AboutUs />;
             case 'Our Sponsors': return <Sponsors />;
             case 'Disclaimer': return <Disclaimer />;
             case 'Alerts': return <Alerts />;
             case 'Contacts': return <Contacts />;
-            case 'Food': return <Food />;
+            case 'Privacy Policy': return <PrivacyPolicy/>;
+           
             default: return <Puja />;
         }
     };

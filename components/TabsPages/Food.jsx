@@ -202,7 +202,9 @@ export default function Food() {
     const [showDetailPage, setShowDetailPage] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
 
-    const colors = ["#E67E22", "#27AE60", "#2980B9", "#8E44AD", "#16A085"];
+    // const colors = ["#E67E22", "#27AE60", "#2980B9", "#8E44AD", "#16A085"];
+    const colors = ["#F54927","#F59942","#F52742","#273CF5","#44E6F2","#39F770","#B4FACC","#FAB4D7","#C20C68","#A8A5A5"];
+
 
     const loadData = () => {
         setLoading(true);
@@ -220,7 +222,7 @@ export default function Food() {
         loadData();
         const intervalId = setInterval(() => {
             fetchEventsPeriodically(setGroupedEvents, () => { }, setError, groupedEvents);
-        }, 10000);
+        }, 30000);
         return () => clearInterval(intervalId);
     }, []);
 

@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
-import Contactbg from "../../assets/Contactbg.webp"
+import { View, Text, Image, StyleSheet, ScrollView , TouchableOpacity, Linking } from "react-native";
+import Contactbg from "../../assets/Contactbg.webp";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default function Contacts() {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             {/* Top Image Section */}
             <Image
-                source={Contactbg} // replace with your image
+                source={Contactbg}
                 style={styles.topImage}
                 resizeMode="cover"
             />
@@ -19,10 +20,45 @@ export default function Contacts() {
                 </View>
 
                 <Text style={styles.heading}>Contacts</Text>
-                <Text style={styles.desc}>Puja@durgabari.org</Text>
-               
+
+                {/* Address */}
+                <Text style={styles.subHeading}>Address</Text>
+                <Text style={styles.desc}>13944 Schiller Road, Houston TX 77082</Text>
+
+                {/* Phone */}
+                <Text style={styles.subHeading}>Phone</Text>
+                <Text style={styles.desc}>(281) 589-7700</Text>
+
+                {/* Email */}
+                <Text style={styles.subHeading}>Email</Text>
+                <TouchableOpacity onPress={() => Linking.openURL("mailto:Puja@durgabari.org")}>
+                    <Text style={styles.desc}>Puja@durgabari.org</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => Linking.openURL("mailto:feedback@durgabari.org")}>
+                    <Text style={styles.desc}>feedback@durgabari.org</Text>
+                </TouchableOpacity>
+
+                {/* Follow Us */}
+                <Text style={[styles.heading, { marginTop: 20 }]}>Follow Us</Text>
+
+                <TouchableOpacity
+                    style={styles.socialBtn}
+                    onPress={() => Linking.openURL("https://www.facebook.com/HoustonDurgaBari/")}
+                >
+                    <Icon name="facebook" size={20} color="#fff" style={{ marginRight: 8 }} />
+                    <Text style={styles.socialText}>Facebook</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.socialBtn, { backgroundColor: "#ff6666", marginTop: 10 }]}
+                    onPress={() => Linking.openURL("https://durgabari.org/")}
+                >
+                    <Icon name="launch" size={20} color="#fff" style={{ marginRight: 8 }} />
+                    <Text style={styles.socialText}>Visit Durgabari For more Details</Text>
+                </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -53,21 +89,31 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 24,
         fontWeight: "bold",
-        marginBottom: 20,
+        marginBottom: 10,
     },
-    desc: 
-    {
-        fontSize : 18 ,
-    } ,
-    button: {
-        backgroundColor: "#d32f2f",
-        paddingVertical: 12,
+    subHeading: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginTop: 10,
+        marginBottom: 4,
+    },
+    desc: {
+        fontSize: 18,
+        marginBottom: 6,
+    },
+    socialBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#4267B2",
+        paddingVertical: 10,
         paddingHorizontal: 16,
         borderRadius: 25,
-        alignItems: "center",
+        marginTop: 10,
+        alignSelf: "flex-start",
     },
-    buttonText: {
+    socialText: {
         color: "#fff",
         fontSize: 16,
+        fontWeight: "bold",
     },
 });

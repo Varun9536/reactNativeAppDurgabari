@@ -16,6 +16,7 @@ import Bhog from "../assets/Bhog.png";
 import Cultural from "../assets/Cultural.png";
 import SponsorsBG from "../assets/SponsorsBG.jpg";
 import OngoingEventsCarousel from "./Carousel/OngoingEventsCarousel"; // Adjust path as needed
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 
 const { width } = Dimensions.get("window");
@@ -121,7 +122,8 @@ export default function Home() {
 
            
             <TouchableOpacity style={styles.registerBtn} onPress={handleRegister}>
-                <Text style={styles.registerText}>Register Now</Text>
+                <Text style={styles.registerText}>Go To Durgabari</Text>
+                <Icon name="launch" size={18} color="#fff" style={{ marginLeft: 8 }} />
             </TouchableOpacity>
         </View>
     );
@@ -211,9 +213,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 6,
         elevation: 6,
+        display : "flex",
+        flexDirection : "row",
+         alignItems : "center",
+         justifyContent : "center"
+
+
+       
     },
     registerText: {
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: "bold",
         color: "#fff",
         textTransform: "uppercase",
