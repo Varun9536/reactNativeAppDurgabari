@@ -8,6 +8,7 @@ import {
     Dimensions,
     StatusBar,
     useColorScheme,
+    ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Puja from "./TabsPages/Puja";
@@ -21,6 +22,7 @@ import Disclaimer from "./SideBarPages/Disclaimer";
 import Alerts from "./SideBarPages/Alerts";
 import PrivacyPolicy from "./SideBarPages/PrivacyPolicy"
 import AboutUs from "./SideBarPages/AboutUs"
+
 
 const Tabs = [
     { name: 'Home', icon: 'home' },
@@ -38,6 +40,8 @@ const SidebarItems = [
     { name: 'Disclaimer', icon: 'theaters' },
     { name: 'Our Sponsors', icon: 'restaurant' },
     { name: 'Privacy Policy', icon: 'shield' },
+  
+
 ];
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -79,8 +83,9 @@ export default function Navigation() {
             case 'Disclaimer': return <Disclaimer />;
             case 'Alerts': return <Alerts />;
             case 'Contacts': return <Contacts />;
-            case 'Privacy Policy': return <PrivacyPolicy/>;
-           
+            case 'Privacy Policy': return <PrivacyPolicy />;
+            case 'Check For Updates': return <AppUpdatePage />;
+
             default: return <Puja />;
         }
     };
@@ -112,31 +117,36 @@ export default function Navigation() {
                     </TouchableOpacity>
                 </View>
 
-                {SidebarItems.map((item) => (
-                    <TouchableOpacity
-                        key={item.name}
-                        style={[
-                            styles.sidebarItem,
-                            activeTab === item.name && { backgroundColor: isDark ? '#333' : '#e6f0ff', borderRadius: 8 },
-                        ]}
-                        onPress={() => onSidebarItemPress(item.name)}
-                    >
-                        <Icon
-                            name={item.icon}
-                            size={22}
-                            color={activeTab === item.name ? '#4e73df' : isDark ? '#fff' : '#333'}
-                        />
-                        <Text
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {SidebarItems.map((item) => (
+                        <TouchableOpacity
+                            key={item.name}
                             style={[
-                                styles.sidebarText,
-                                activeTab === item.name && { color: '#4e73df', fontWeight: 'bold' },
-                                { color: isDark ? '#fff' : '#333' },
+                                styles.sidebarItem,
+                                activeTab === item.name && { backgroundColor: isDark ? '#333' : '#e6f0ff', borderRadius: 8 },
                             ]}
+                            onPress={() => onSidebarItemPress(item.name)}
                         >
-                            {item.name}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
+                            <Icon
+                                name={item.icon}
+                                size={22}
+                                color={activeTab === item.name ? '#4e73df' : isDark ? '#fff' : '#333'}
+                            />
+                            <Text
+                                style={[
+                                    styles.sidebarText,
+                                    activeTab === item.name && { color: '#4e73df', fontWeight: 'bold' },
+                                    { color: isDark ? '#fff' : '#333' },
+                                ]}
+                            >
+                                {item.name}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+
+
+
             </Animated.View>
 
             <View style={{ flex: 1 }}>
@@ -183,8 +193,8 @@ export default function Navigation() {
 }
 
 const styles = StyleSheet.create({
-    container: { 
-        flex: 1 
+    container: {
+        flex: 1
     },
     overlay: {
         position: 'absolute',
@@ -195,71 +205,71 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.3)',
         zIndex: 10,
     },
-    SidebarHeadingsBox: { 
-        display: "flex", 
-        flexDirection: "row", 
-        justifyContent: "space-between" 
+    SidebarHeadingsBox: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
-    sidebar: { 
-        position: 'absolute', 
-        top: 0, 
-        bottom: 0, 
-        width: SCREEN_WIDTH * 0.6, 
-        paddingTop: 50, 
-        paddingHorizontal: 20, 
-        elevation: 5, 
-        zIndex: 1000 
+    sidebar: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        width: SCREEN_WIDTH * 0.6,
+        paddingTop: 50,
+        paddingHorizontal: 20,
+        elevation: 5,
+        zIndex: 1000
     },
-    sidebarTitle: { 
-        fontSize: 24, 
-        fontWeight: 'bold', 
-        marginBottom: 20 
+    sidebarTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20
     },
-    sidebarItem: { 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        paddingVertical: 12 
+    sidebarItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12
     },
-    sidebarText: { 
-        fontSize: 18, 
-        marginLeft: 15 
+    sidebarText: {
+        fontSize: 18,
+        marginLeft: 15
     },
-    header: { 
-        height: 55, 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'space-between', 
-        paddingHorizontal: 10, 
-        elevation: 3 
+    header: {
+        height: 55,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+        elevation: 3
     },
-    headerTitle: { 
-        fontSize: 20, 
-        fontWeight: 'bold' 
+    headerTitle: {
+        fontSize: 20,
+        fontWeight: 'bold'
     },
-    body: { 
-        flex: 1 
+    body: {
+        flex: 1
     },
-    tabBar: { 
-        flexDirection: 'row', 
-        height: 65, 
-        borderTopWidth: 1, 
-        borderColor: '#ddd', 
-        elevation: 5 
+    tabBar: {
+        flexDirection: 'row',
+        height: 65,
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+        elevation: 5
     },
-    tabItem: { 
-        flex: 1, 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+    tabItem: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    tabText: { 
-        fontSize: 12, 
-        marginTop: 2, 
-        textAlign: 'center', 
-        flexWrap: 'wrap', 
-        width: 80 
+    tabText: {
+        fontSize: 12,
+        marginTop: 2,
+        textAlign: 'center',
+        flexWrap: 'wrap',
+        width: 80
     },
-    activeText: { 
-        fontWeight: 'bold' 
+    activeText: {
+        fontWeight: 'bold'
     },
 });
 

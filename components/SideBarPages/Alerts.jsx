@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import Alertbg from "../../assets/Alertbg.png"
 
 export default function Alerts() {
     return (
-        <View style={styles.container}>
+
+        <ScrollView style={styles.container}>
+
+            <View >
             {/* Top Image Section */}
             <Image
                 source={Alertbg} // replace with your image
@@ -24,14 +27,16 @@ export default function Alerts() {
                 
             </View>
         </View>
+
+        </ScrollView>
+        
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-    },
+  container: { flex: 1, backgroundColor: '#fff' },
+
+   
     topImage: {
         width: "100%",
         height: 200,
